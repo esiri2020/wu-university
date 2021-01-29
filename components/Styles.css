@@ -1,0 +1,112 @@
+.App {
+    font-family: sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 50px;
+    margin-left: 200px;
+  }
+
+  .super-app {
+    font-family: sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 50px;
+  }
+
+.carouselimg{
+  width: 300px;
+  height: 300px;
+  display: inline-block;
+  align-content: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.carouseltext{
+  justify-content: center;
+  display: flex;
+  background-color: bisque;
+  margin: 30px 10px;
+  padding: 10px;
+  width: 150px;
+  font-weight: 700;
+}
+.carouseltext2{
+  justify-content: center;
+  display: flex;
+  background-color: #fffb22;
+  margin: 10px 20px;
+  padding: 10px;
+  width: 150px
+}
+
+.destination-title{
+  font-size: 16px;
+}
+
+.destination-code{
+  font-size: 16px;
+}
+.btn{
+  padding: 20px
+}
+.card-section {
+  display: flex;
+}
+
+.box{
+  margin-top: 10px;
+}
+
+.ja-box{
+  border: 1px solid #000;
+  background-color: #ff22ff;
+  color: #000;
+  padding: 20px;
+}
+
+.ja-profile{
+  margin: 50px 0px 0px 0px;
+  display: flex;
+  align-content: center;
+  justify-content: center;
+}
+
+.profile{
+  margin: 100px;
+}
+
+.card-body{
+  border: 1px solid #000;
+  padding: 20px;
+  border-radius: 10px;
+  width: 300px;
+  margin: 20px
+}
+
+.icon {
+  width: 60px;
+  height: 50px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-color: #fff;
+  border-radius: 50%;
+}
+
+.welcome{
+  color: #fff;
+  font-style: bold;
+  font-size: 15px;
+  align-self: center;
+}
+
+.sa-box{
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  margin-right: 100px;
+}
