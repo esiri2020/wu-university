@@ -67,14 +67,14 @@ export default class Destinations extends Component {
                 <h2>All Provinces</h2>
                 <Container>
                     <Row xs='4'>
-                        {provinces.map((item) => 
+                {provinces.map((item) => 
                             <Col key={item.provinceId} className='card-section'>
                                 <div body className='card-body'>
                                     <p className='destination-title'>{item.name}</p>
                                     <p className='destination-code'>{item.shortCode}</p>
                                 </div>
                             </Col> 
-                        )}
+                    )}
                     </Row>
                 </Container>
 

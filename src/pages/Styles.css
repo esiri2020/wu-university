@@ -38,11 +38,22 @@
 .login-content {
   display: flex;
   justify-content: center;
-  align-content: center;
+  align-items: center;
+  height: 100%;
 }
 
+.formstyle{
+  padding: 20px;
+  border: 1px solid #f2f2f2;
+  background-color: #fff;
+  border-radius: 10px;
+}
+
+.logintext{
+  margin: 20px 20px;
+}
 .logo {
-  color: hsl(236, 86%, 55%);
+  color: rgb(42, 55, 239);
   margin: 50px;
   font-size: 3rem;
 
@@ -66,8 +77,10 @@
 
 .submit{
   width: 300px;
-  height: 50px;
   margin: 15px;
   color: #fff;
+  display: flex;
+  align-self: center;
+  justify-content: center;
   background-color: #efa12c;
 }

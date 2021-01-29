@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { Container, Row, Col } from "reactstrap";
 import "./Styles.css";
 import { Button, Form, FormGroup, Input } from "reactstrap";
 import axios from "axios";
@@ -55,7 +54,8 @@ function Login() {
         </div>
         <div className="right-side">
           <div className="login-content">
-            <Form onSubmit={login}>
+            <Form onSubmit={login} className="formstyle">
+            <h3 className='logintext'>Login</h3>
               <FormGroup>
                 <Input
                   type="email"
