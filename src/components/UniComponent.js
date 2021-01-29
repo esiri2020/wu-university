@@ -1,14 +1,20 @@
 import React from 'react'
 
-const UniComponent = (universities, loading) => {
+const UniComponent = ({universities, loading}) => {
+    
+    // const {universities, loading} = props;
+    // console.log(props)
+
+
     if (loading) {
         return <h2>Loading...</h2>;
     }
     
     return (
-    <ul className="list-group mb-4">q
+    <ul className="list-group mb-4">
         {universities.map(university => (
-            <li key={university.id} className="list-group-item"> <div> 
+            <li key={university.id} className="list-group-item"> 
+            <div> 
                 <img src={university.image} alt="" /> 
                 <div> 
                     <h2>{university.name}</h2>

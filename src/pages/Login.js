@@ -44,16 +44,16 @@ function Login() {
   }
 
   return (
-    <Container>
-      <Row className="login">
-        <Col xs="4" className="left-side">
+    <div>
+      <div className="login">
+        <div  className="left-side">
           <h5 className="logo"> welkom.u </h5>
           <h3 className="sub-title">
             {" "}
             Start the Life, Career you Desired with ease{" "}
           </h3>
-        </Col>
-        <Col xs="9" className="right-side">
+        </div>
+        <div className="right-side">
           <div className="login-content">
             <Form onSubmit={login}>
               <FormGroup>
@@ -89,9 +89,9 @@ function Login() {
               </Button>
             </Form>
           </div>
-        </Col>
-      </Row>
-    </Container>
+        </div>
+      </div>
+    </div>
   );
 }
 

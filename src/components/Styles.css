@@ -7,6 +7,24 @@
     margin-left: 200px;
   }
 
+  .selectme{
+    width: 100%;
+    display: block;
+    height: 50px
+  }
+
+  .submit2{
+    width: 100%;
+    height: 50px;
+    margin: 15px;
+    color: #fff;
+    background-color: #efa12c;
+  }
+
+  .list-group-item {
+    margin: 20px;
+  }
+
   .super-app {
     font-family: sans-serif;
     display: flex;
