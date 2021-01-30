@@ -1,130 +1,142 @@
-import React, {useState, useEffect} from 'react';
-import axios from 'axios';
-import UniComponent from './UniComponent'
-import Modal from 'react-bootstrap/Modal'
-import Button from 'react-bootstrap/Button'
-import Form from 'react-bootstrap/Form'
-import './Styles.css'
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import UniComponent from "./UniComponent";
+import Modal from "react-bootstrap/Modal";
+import Button from "react-bootstrap/Button";
+import Form from "react-bootstrap/Form";
+import "./Styles.css";
 export default function Universities(props) {
+  console.log(props);
 
-    console.log(props)
+  const [universities, setUniversities] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [universitiesPerPage, setUniversitiesPerPage] = useState(10);
 
-    const [universities, setUniversities] = useState([]);
-    const [loading, setLoading] = useState(false);
-    const [currentPage, setCurrentPage] = useState(1);
-    const [universitiesPerPage, setUniversitiesPerPage] = useState(10)
-    const [locations, setLocation] = useState([]);
-    const [pins, setPin] = useState([]);
-    const [show, setShow] = useState(false);
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
+  const [province, setProvince] = useState([]);
+  const [selectedProvince, setSeledtedProvince] = useState("");
 
-    const [locationz, setSelectedLocation] = useState("")
+  const [cities, setCities] = useState([]);
+  const [selectedCity, setSeledtedCity] = useState("");
 
+  const [show, setShow] = useState(false);
+  const save = (e) => {
+    e.preventDefault();
+    fetchUniversities(selectedCity, selectedProvince);
+    handleClose();
+  };
+  const handleClose = () => {
+    setShow(false);
+  };
+  const handleShow = () => setShow(true);
 
+  const fetchProvinces = async () => {
+    setLoading(true);
+    const res = await axios.get("CityProvince/GetAllProvinces");
+    setProvince(res.data.result.provinces);
+    setLoading(false);
+  };
+  const fetchCities = async (province) => {
+    setLoading(true);
+    const res = await axios.get("CityProvince/GetAllCities", {
+      params: {
+        ProvinceName: province,
+      },
+    });
+    setCities(res.data.result.cities);
+    setLoading(false);
+  };
 
+  const fetchUniversities = async (city, province) => {
+    console.log("City : " + city, "Province : " + province);
+    setLoading(true);
+    const res = await axios.get("UniversityManagement/GetAllUniversity", {
+      params: {
+        Province: province,
+        City: city,
+        PageSize: 10,
+        CurrentPage: 1,
+      },
+    });
+    setUniversities(res.data.universities.items);
+    setLoading(false);
+  };
 
-    useEffect (() => {
+  useEffect(() => {
+    fetchProvinces();
+    fetchUniversities(selectedCity, selectedProvince);
+  }, []);
 
-        
-        const fetchLocation = async () => {
-            setLoading(true);
-            const res= await axios
-            .get('CityProvince/GetAllProvinces')
-            setLocation(res.data.result.provinces)
-            setLoading(false)
-        };
+  useEffect(() => {
+    fetchCities(selectedProvince);
+  }, [selectedProvince]);
 
-        const fetchPin = async () => {
-            setLoading(true);
-            const res= await axios
-            .get('CityProvince/GetAllCities', 
-                {
-                    params: {
-                        ProvinceName: locationz
-                    }
-                }
-            );
-            setPin(res.data.result.cities)
-            setLoading(false)
-        };
+  const handleChangeSelectLocation = (event) => {
+    event.preventDefault();
+    setSeledtedProvince(event.target.value);
+  };
 
-        const fetchUniversities = async () => {
-            setLoading(true);
-            const res = await axios.get('UniversityManagement/GetAllUniversity', 
-            {
-                params: { 
-                    Province: locations,
-                    City: pins,
-                    PageSize: 2,
-                    CurrentPage: 1
-                }
-            })
-            setUniversities(res.data.universities.items);
-            setLoading(false);
-        };
+  const handleChangeSelectCity = (event) => {
+    event.preventDefault();
+    setSeledtedCity(event.target.value);
+  };
 
-        fetchUniversities();
-        fetchLocation();
-        fetchPin();
+  //Get current Universities
+  const indexOfLastUniversity = currentPage * universitiesPerPage;
+  const indexOfFirstUniversity = indexOfLastUniversity - universitiesPerPage;
+  const currentUniversities = universities.slice(
+    indexOfFirstUniversity,
+    indexOfLastUniversity
+  );
 
-    }, [])
+  //   console.log(universities);
+  //   console.log(province);
+  console.log(cities);
 
+  return (
+    <div className="container mt-5">
+      <div>
+        <h1 className="text-primary mb-3">Universities </h1>
+        <Button variant="primary" onClick={handleShow}>
+          Change Location
+        </Button>
+      </div>
+      <UniComponent universities={universities} loading={loading} />
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Modal heading</Modal.Title>
+        </Modal.Header>
+        <Form onSubmit={save}>
+          <Modal.Body>
+            <select onChange={handleChangeSelectLocation} className="selectme">
+              <option value="">Select Province</option>
+              {province?.map((item) => (
+                <option key={item.provinceId} value={item.name}>
+                  {item.name}
+                </option>
+              ))}
+            </select>
 
-    const handleChangeSelectLocation = (event) => {
-        setLocation(event.target.value);
-    };
-
-    const handleChangeSelectCity = (event) => {
-    setPin(event.target.value);
-    };
-    //Get current Universities
-    const indexOfLastUniversity = currentPage * universitiesPerPage;
-    const indexOfFirstUniversity = indexOfLastUniversity - universitiesPerPage;
-    const currentUniversities = universities.slice(indexOfFirstUniversity, indexOfLastUniversity)
-
-    console.log(universities)
-    console.log(locations)
-    console.log(pins)
-
-
-    return (
-        <div className= 'container mt-5'>
-            <div>
-                <h1 className = 'text-primary mb-3'>Universities </h1>
-                <Button variant="primary" onClick={handleShow}>
-                    Change Location
-                </Button>
-            </div>
-            <UniComponent universities={currentUniversities} loading={loading}/>
-            <Modal show={show} onHide={handleClose}>
-                <Modal.Header closeButton>
-                <Modal.Title>Modal heading</Modal.Title>
-                </Modal.Header>
-                <Form>
-                    <Modal.Body>
-                            <Form.Group as="select" value={locationz} onChange={handleChangeSelectLocation} className='selectme' >
-                                <option >Select Province</option>
-                            {locations.map((item) => 
-                                <option key={item.provinceId } value={item.name} >{item.name}</option>
-                            )}
-                            </Form.Group>
-
-                            <Form.Group as="select"  className='selectme' >
-                                <option disabled={locationz === ""} value={pins} onChange={handleChangeSelectCity} >Select City</option>
-                            {pins.map((item) => 
-                                <option key={item.id} value={item.name}>{item.name}</option>
-                                )}
-                            </Form.Group>
-
-                    </Modal.Body>
-                    <Modal.Footer>
-                    <Button className="submit2" type="submit" onClick={handleClose}>
-                        Submit
-                    </Button>
-                    </Modal.Footer>
-                    </Form>
-            </Modal>
-        </div>
-    )
+            <select
+              disabled={selectedProvince === ""}
+              onChange={handleChangeSelectCity}
+              className="selectme"
+            >
+              <option>Select City</option>
+              {cities.map((item) => (
+                <option key={item.id} value={item.name}>
+                  {item.name}
+                </option>
+              ))}
+            </select>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button type="submit" className="submit2">
+              Submit
+            </Button>
+          </Modal.Footer>
+        </Form>
+      </Modal>
+    </div>
+  );
 }
