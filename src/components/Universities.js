@@ -5,13 +5,15 @@ import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import "./Styles.css";
+import Pagination from "./Pagination"
+
 export default function Universities(props) {
   console.log(props);
 
   const [universities, setUniversities] = useState([]);
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-  const [universitiesPerPage, setUniversitiesPerPage] = useState(10);
+  const [universitiesPerPage] = useState(2);
 
   const [province, setProvince] = useState([]);
   const [selectedProvince, setSeledtedProvince] = useState("");
@@ -89,6 +91,8 @@ export default function Universities(props) {
     indexOfLastUniversity
   );
 
+  //Change Page
+  const paginate =(pageNumber) => setCurrentPage(pageNumber);
   //   console.log(universities);
   //   console.log(province);
   console.log(cities);
@@ -101,10 +105,15 @@ export default function Universities(props) {
           Change Location
         </Button>
       </div>
-      <UniComponent universities={universities} loading={loading} />
+      <UniComponent universities={currentUniversities} loading={loading}  />
+      <Pagination 
+        universitiesPerPage={universitiesPerPage} 
+        totalUniversities={universities.length} 
+        paginate={paginate} 
+      />
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Modal heading</Modal.Title>
+          <Modal.Title>Select Location</Modal.Title>
         </Modal.Header>
         <Form onSubmit={save}>
           <Modal.Body>

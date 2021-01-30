@@ -6,6 +6,14 @@
     padding-top: 50px;
   }
 
+  .imgsize{
+    width: 500px;
+    margin: 20px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+
   .selectme{
     width: 100%;
     display: block;

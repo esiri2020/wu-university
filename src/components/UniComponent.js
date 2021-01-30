@@ -14,8 +14,8 @@ const UniComponent = ({universities, loading}) => {
     <ul className="list-group mb-4">
         {universities.map(university => (
             <li key={university.id} className="list-group-item"> 
-            <div> 
-                <img src={university.image} alt="" /> 
+            <div style={{display: "flex"}}> 
+                <img src={university.image} className="imgsize" alt="" /> 
                 <div> 
                     <h2>{university.name}</h2>
                     <p>{university.about}</p>
